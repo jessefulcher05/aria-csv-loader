@@ -1,0 +1,24 @@
+{
+  "name": "aria-csv-loader",
+  "version": "1.0.0",
+  "description": "ARia CSV loaoder",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "jshintConfig": {
+    "esversion": 6
+  },
+  "dependencies": {
+    "aria-sdk-unofficial": "^1.2.2",
+    "async": "^2.1.4",
+    "csvtojson": "^1.1.2",
+    "dotenv": "^4.0.0",
+    "json2csv": "^3.7.3",
+    "moment": "^2.17.1",
+    "underscore": "^1.8.3"
+  }
+}
