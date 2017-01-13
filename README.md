@@ -35,6 +35,7 @@ Place an input CSV in files/input and ensure the filename matches the name in .e
 * Run the applciation with `node app.js` or `npm start`
 
 
+### Visual Studio Code Run Configuration
 
 ```
 {
