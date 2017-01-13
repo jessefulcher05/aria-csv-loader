@@ -6,6 +6,7 @@ The header of the CSV must match the API input parameters of a given API
 ## Setup
 Create a file named .env in the root directory and populate it with the following (comments are optional):
 
+```
 CSV_FILENAME=my_file.csv # name of file which must reside in files/input/
 API_NAME=create_usage_m # exact name of the api
 API_TYPE=core # api types. core, admintools, object
@@ -14,6 +15,7 @@ CLIENT_NO=123456 # Aria client number
 AUTH_KEY=12325desdsv3r232e # Auth key for the Aria client
 THREADS=50 # Number of concurrent api requests made to Aria
 PRINT_OUTPUT_COUNT=100   # Determines how often a status message will be printed to the console 
+```
 
 Place an input CSV in files/input and ensure the filename matches the name in .env
 
