@@ -58,6 +58,8 @@ console.log(confirmText);
  */
 let tasks = [];
 let headers = [];
+let startTime;
+let finishTime;
 /**
  * Initialize Aria object
  */
@@ -73,7 +75,16 @@ let queue = Queue(aria, data.threads, data.printOutputCount);
  * Callback function called after all items in queue are processed
  */
 queue.drain = function() {
-  console.log('all items have been processed, saving output file');
+  console.log('all items have been processed');
+  finishTime = moment();
+  console.log('Finish Time', finishTime.format('hh:mm:ss'));
+  const duration = finishTime - startTime;
+  if(duration > 60000) {
+    console.log('TotalTime', `${moment.duration(duration).asMinutes()} minutes` );
+  } else {
+    console.log('TotalTime', `${moment.duration(duration).asSeconds()} seconds` );
+  }
+  console.log('Saving output file');
   const responses = tasks.map(task => task.response);
   responses.forEach(response => {
     headers = _.union(Object.keys(response));
@@ -104,6 +115,8 @@ queue.drain = function() {
 csv.csvToJson(data.filepath)
 .then(csvObj => {
   console.log('Starting data load.... pelase wait');
+  startTime = moment();
+  console.log('Start Time', startTime.format('hh:mm:ss'));
   let counter = 0;
   tasks = csvObj.map(row => {
                             return {
