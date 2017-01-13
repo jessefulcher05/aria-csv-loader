@@ -15,6 +15,7 @@ let data = {
   filename: process.env.CSV_FILENAME,
   filepath: path.join(__dirname, 'files', 'input', process.env.CSV_FILENAME),
   outputPath: path.join(__dirname, 'files', 'output', `${moment().format('YYYY-MM-DD_HH.mm.ss')}_${process.env.CSV_FILENAME}`),
+  iterations: process.env.ITERATIONS || 1,
   apiName: process.env.API_NAME,
   apiType: process.env.API_TYPE,
   env: process.env.ENV,
@@ -118,15 +119,17 @@ csv.csvToJson(data.filepath)
   startTime = moment();
   console.log('Start Time', startTime.format('hh:mm:ss'));
   let counter = 0;
-  tasks = csvObj.map(row => {
-                            return {
-                              apiType: data.apiType,
-                              apiName: data.apiName,
-                              counter: counter++,
-                              payload: row,
-                              response: {}
-                            };
-                          });
+  for(let i = 0; i < data.iterations; i++) {
+    tasks.push(...csvObj.map(row => {
+                              return {
+                                apiType: data.apiType,
+                                apiName: data.apiName,
+                                counter: counter++,
+                                payload: row,
+                                response: {}
+                              };
+                            }));
+  }
   queue.push(tasks, (err) => {
   });
 })
