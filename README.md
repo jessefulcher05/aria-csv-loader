@@ -20,12 +20,12 @@ PRINT_OUTPUT_COUNT=100   # Determines how often a status message will be printed
 Place an input CSV in files/input and ensure the filename matches the name in .env
 
 ## Running Application
-* Ensure all .env parameters are configured correctly - read more about (dotenv)[https://github.com/motdotla/dotenv]
-* Ensure (nodejs)[https://nodejs.org/en/] is installed and can be access from the command line using `node --version`
+* Ensure all .env parameters are configured correctly - read more about [dotenv](https://github.com/motdotla/dotenv)
+* Ensure [nodejs](https://nodejs.org/en/) is installed and can be access from the command line using `node --version`
 * from the command line, open the directory and type `npm install` to install all dependencies. This application will not run unless this step is completed.
 
 ### Visual Studio (Recommended for users not familiar with NodeJS)
-* Download (Visual Studio Code)[https://code.visualstudio.com/]
+* Download [Visual Studio Code](https://code.visualstudio.com/)
 * Open project folder
 * Ensure that .vscode/launch.json exists. If not, when you attmpt to run just accept the defaults and ensure it is pointig to app.js (example below)
 * Press F5 to run the application
