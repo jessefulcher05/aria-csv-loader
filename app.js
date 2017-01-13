@@ -120,15 +120,17 @@ csv.csvToJson(data.filepath)
   console.log('Start Time', startTime.format('hh:mm:ss'));
   let counter = 0;
   for(let i = 0; i < data.iterations; i++) {
-    tasks.push(...csvObj.map(row => {
-                              return {
-                                apiType: data.apiType,
-                                apiName: data.apiName,
-                                counter: counter++,
-                                payload: row,
-                                response: {}
-                              };
-                            }));
+
+    csvObj.forEach(row => {
+      tasks.push({
+        apiType: data.apiType,
+        apiName: data.apiName,
+        counter: counter++,
+        payload: row,
+        response: {}
+      });
+    });
+
   }
   queue.push(tasks, (err) => {
   });
