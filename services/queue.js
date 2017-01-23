@@ -21,15 +21,17 @@ module.exports = function(aria, threads, printOutputCount) {
   threads = threads || 30;
   printOutputCount = printOutputCount || 100;
   return queue(function(task, callback) {
+    task.start();
     aria.call(task.apiType, task.apiName, task.payload)
     .then(results => {
       if(task.counter && task.counter % printOutputCount === 0) {
-        console.log(`Finshed processing records in group ${task.counter-printOutputCount} through ${task.counter}`);
+        console.info(`Finshed processing records in group ${task.counter - printOutputCount} through ${task.counter}`);
       }
-      task.response = results;
-      callback(null, results);
+      task.addResponse(results);
+      callback(null);
     })
     .catch(err => {
+      task.addError(err);
       callback(err);
     });
   }, threads);

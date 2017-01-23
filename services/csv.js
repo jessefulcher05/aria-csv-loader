@@ -1,5 +1,6 @@
 const csv = require('csvtojson');
 var json2csv = require('json2csv');
+const _ = require('underscore');
 
 // Take in CSV and return JSON
 module.exports.csvToJson = function(csvFilePath, checkType, trim, ignoreEmpty) {
@@ -10,7 +11,7 @@ module.exports.csvToJson = function(csvFilePath, checkType, trim, ignoreEmpty) {
       ignoreEmpty = ignoreEmpty || true;
       // Take in CSV file and convert to JSON
       let output = [];
-      console.log(`Beginning to read file...`);
+      console.info(`Beginning to read file...`);
       csv({
         checkType: checkType,
         trim: trim,
@@ -21,21 +22,23 @@ module.exports.csvToJson = function(csvFilePath, checkType, trim, ignoreEmpty) {
       })
       .on('done', err => {
         if(err) return reject(err);
-        console.log(`Finished reading file. Read ${output.length} lines.`);
+        console.info(`Finished reading file. Read ${output.length} lines.`);
         resolve(output);
       });
     } catch(e) {
-      console.log('exception thrown reading csv', e);
+      console.error('exception thrown reading csv', e);
       reject({message: "Error reading csv file", error: e});
     }
   });
-}
+};
 
-module.exports.objToCsv = function(obj, transHeader) {
+module.exports.objToCsv = function(obj, transHeader, includeHeader) {
   return new Promise(function(resolve, reject) {
+    includeHeader = _.isUndefined(includeHeader) ? true : includeHeader;
     var options = {
       data: obj,
-      flatten: true
+      flatten: true,
+      hasCSVColumnTitle: includeHeader ? true : false, // ensure boolean value
     };
 
     json2csv(options, function(err, csv) {
